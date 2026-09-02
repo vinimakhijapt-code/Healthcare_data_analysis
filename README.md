@@ -44,10 +44,10 @@ Result - Nil field with null value was found
 ## Duplicate 
 
 ```sql
-SELECT Name, Date_of_Admission, COUNT(*) AS occurrences
-FROM `practise-sql-505810.Healthcare_data.Patient_details`
-GROUP BY Name, Date_of_Admission
-HAVING COUNT(*) > 1
+Select Name, Date_of_Admission, COUNT(*) AS occurrences
+From `practise-sql-505810.Healthcare_data.Patient_details`
+Group by Name, Date_of_Admission
+Having count(*) > 1
 ```
 
 Checked individual details of a duplicate value 
@@ -119,8 +119,8 @@ Results - Revenue was consistent and within the range ($239M-$245M) from 2020 to
 Further verified if the low revenue is genuine low revenue or due to incomplete data 
 
 ```sql
-SELECT MIN(Date_of_Admission) AS earliest_date, MAX(Date_of_Admission) AS latest_date
-FROM `practise-sql-505810.Healthcare_data.Patient_details`
+Select min(Date_of_Admission) as earliest_date, max(Date_of_Admission) as latest_date
+From `practise-sql-505810.Healthcare_data.Patient_details`
 ```
 
 Results - 2019 and 2024 only contain partial data as the data spans through May 2019 to May 2024. There was no meaningful trend observed in yearly total revenue.
