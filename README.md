@@ -39,7 +39,7 @@ WHERE Name IS NULL
    OR Length_of_Stay IS NULL
 ```
 
-Result - Nil null found
+Result - Nil field with null value was found
 
 ## Duplicate 
 
@@ -50,7 +50,7 @@ GROUP BY Name, Date_of_Admission
 HAVING COUNT(*) > 1
 ```
 
-checked individual details of a duplicate value 
+Checked individual details of a duplicate value 
 
 ```sql
 select *
