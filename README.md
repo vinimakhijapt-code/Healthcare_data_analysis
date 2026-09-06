@@ -128,7 +128,7 @@ Results - 2019 and 2024 only contain partial data as the data spans through May 
 
 ## Q4. Are there any monthly/seasonal trends in admissions or billing?
 
-Extracted month from date of admission data and then added this to CTE to calculate total monthly revenue from all data and admission count in each month.
+Extracted month from date of admission data and then added this to CTE to calculate average revenue and admission count in each month.
 
 ```sql
 with monthly_admissions AS (select 
@@ -136,14 +136,14 @@ extract (month from date_of_admission) as Month, billing_amount
 from `practise-sql-505810.Healthcare_data.Patient_details`)
 
 select month,
-Sum (billing_amount) AS total_revenue,
+avg (billing_amount) AS avgmonthly_revenue,
 count (*) As total_admissions
 from monthly_admissions
 group by month
 order by month
 ```
 
-Results - August, July, and June showed the highest admissions and highest total revenue, while February was the lowest for both. However, the spread was modest for both measures — approximately 13.6% for admissions and 14% for revenue between the highest and lowest months. Given this consistent, relatively narrow spread across two independent measures, and the synthetic nature of this dataset, this is more likely natural random variation than a genuine seasonal healthcare pattern.
+Results - Neither patient admission volume nor average billing amount showed meaningful monthly variation. Admission counts varied by ~13.6% between the highest (August, 4,832) and lowest (February, 4,255) months, while average billing per patient varied by only ~5% (January £22,178 vs October £21,091). Given the consistently narrow spread across both measures, no genuine seasonal trend is evident.
 
 ## Q5. Are certain hospitals associated with high billing amounts?
 
