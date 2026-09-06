@@ -58,7 +58,7 @@ from `practise-sql-505810.Healthcare_data.Patient_details`
 where Name = "Emily King"
 ```
 
-Result - Initial investigation using Name + Admission Date suggested ~5,509 potential duplicate records; however, deeper inspection revealed these were distinct patients sharing same name and admission date — a known limitation of synthetic/generated datasets lacking unique patient identifiers.
+Result - Initial investigation using Name + Admission Date suggested ~5,509 potential duplicate records; however, deeper inspection revealed these were distinct patients sharing the same name and admission date — a known limitation of synthetic/generated datasets lacking unique patient identifiers.
 
 ## A different approach was then used to find out actual duplicates 
 
@@ -99,7 +99,7 @@ Results - Alzheimer's had the longest average length of stay of 54.4 days follow
 
 
 ## Q3: how much money is billed yearly, Is there a trend in total billing amount over the years?
-Built a Common Table Expression (CTE) to extract year from date of admission and then used this CTE to get total revenue per year.
+Built a Common Table Expression (CTE) to extract year from date of admission and then used this CTE to get total billed amount per year.
 
 ```sql
 With year_date as (select
@@ -127,7 +127,7 @@ Results - 2019 and 2024 only contain partial data as the data spans through May 
 
 ## Q4. Are there any monthly/seasonal trends in admissions or billing?
 
-Extracted month from date of admission data and then added this to CTE to calculate average revenue and admission count in each month.
+Extracted month from date of admission data and then added this to CTE to calculate average billing amount and admission count in each month.
 
 ```sql
 with monthly_admissions AS (select 
@@ -146,7 +146,7 @@ Results - Neither patient admission volume nor average billing amount showed mea
 
 ## Q5. Are certain hospitals associated with high billing amounts?
 
-Calculated total amount each hospital billed and observed that the spread across all hospitals was small. Calculated patient count and average billing amount per hospital to understand the trend observed in total billing amount from each hospital.
+Calculated the total amount each hospital billed and observed that the spread across all hospitals was small. Calculated patient count and average billing amount per hospital to understand the trend observed in total billing amount from each hospital.
 
 ```sql
 Select hospital,
