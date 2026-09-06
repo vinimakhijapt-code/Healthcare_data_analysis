@@ -9,7 +9,7 @@ Questions structured using 5W1H framework to explore the understanding of busine
 What - what medical conditions have the highest billing amount?
 What is the average length of stay per medical condition?
 
-When - What is yearly total revenue, Is there a trend in total billing amount over the years? Are there any monthly/seasonal trends in admissions or billing?
+When - how much money is billed yearly, Is there a trend in total billing amount over the years? Are there any monthly/seasonal trends in admissions or billing?
 
 Who - Are certain hospitals associated with high billing amounts?
 
@@ -98,8 +98,7 @@ order by avg_lengthofstay desc
 Results - Alzheimer's had the longest average length of stay of 54.4 days followed by Cancer (36.5 days) and Heart disease (26.8 days).
 
 
-## Q3: What is yearly total revenue, Is there a trend in total billing amount over the years?
-
+## Q3: how much money is billed yearly, Is there a trend in total billing amount over the years?
 Built a Common Table Expression (CTE) to extract year from date of admission and then used this CTE to get total revenue per year.
 
 ```sql
@@ -108,22 +107,22 @@ extract (year from date_of_admission) as Year, billing_amount
 from `practise-sql-505810.Healthcare_data.Patient_details`)
 
 select year,
-sum (Billing_Amount) As total_revenue
+sum (Billing_Amount) As total_billing_amount
 from year_date
 group by year 
-order by total_revenue desc
+order by total_billing_amount desc
 ```
 
-Results - Revenue was consistent and within the range ($239M-$245M) from 2020 to 2023. However, the revenue appeared to drop sharply in 2019 and 2024.
+Results - Total billed amount was consistent and within the range ($239M-$245M) from 2020 to 2023. However, the amount appeared to drop sharply in 2019 and 2024.
 
-Further verified if the low revenue is genuine low revenue or due to incomplete data 
+Further explored the reason for sharp drop in amount for those to years (2019 and 2024)
 
 ```sql
 Select min(Date_of_Admission) as earliest_date, max(Date_of_Admission) as latest_date
 From `practise-sql-505810.Healthcare_data.Patient_details`
 ```
 
-Results - 2019 and 2024 only contain partial data as the data spans through May 2019 to May 2024. There was no meaningful trend observed in yearly total revenue.
+Results - 2019 and 2024 only contain partial data as the data spans through May 2019 to May 2024. There was no meaningful trend observed in the total amount billed over the years.
 
 
 ## Q4. Are there any monthly/seasonal trends in admissions or billing?
@@ -136,22 +135,22 @@ extract (month from date_of_admission) as Month, billing_amount
 from `practise-sql-505810.Healthcare_data.Patient_details`)
 
 select month,
-avg (billing_amount) AS avgmonthly_revenue,
+avg (billing_amount) AS avgmonthly_billing_amount,
 count (*) As total_admissions
 from monthly_admissions
 group by month
 order by month
 ```
 
-Results - Neither patient admission volume nor average billing amount showed meaningful monthly variation. Admission counts varied by ~13.6% between the highest (August, 4,832) and lowest (February, 4,255) months, while average billing per patient varied by only ~5% (January £22,178 vs October £21,091). Given the consistently narrow spread across both measures, no genuine seasonal trend is evident.
+Results - Neither patient admission volume nor average billing amount showed meaningful monthly variation. Admission counts varied by ~13.6% between the highest (August, 4,832) and lowest (February, 4,255) months, while average billing per patient varied by only ~5% (January $22,178 vs October $21,091). Given the consistently narrow spread across both measures, no genuine seasonal trend is evident.
 
 ## Q5. Are certain hospitals associated with high billing amounts?
 
-Calculated total revenue from each hospital and observed that the spread across all hospitals revenue is small. Calculated patient count and average billing amount per hospital to understand whether similar totals were driven by similar patient volume, similar per-patient billing, or a mix of both.
+Calculated total amount each hospital billed and observed that the spread across all hospitals was small. Calculated patient count and average billing amount per hospital to understand the trend observed in total billing amount from each hospital.
 
 ```sql
 Select hospital,
-sum (Billing_Amount) as hospital_totalrevenue,
+sum (Billing_Amount) as hospital_total_billing_amount,
 count (*) As patient_count, 
 Avg(Billing_Amount) As Avg_billingamount
 from `practise-sql-505810.Healthcare_data.Patient_details`
@@ -159,7 +158,7 @@ group by hospital
 order by avg_billingamount desc
 ```
 
-Results - Patient count and average billing amount both showed a similarly narrow spread (~3-4%) between the highest and lowest hospitals — consistent with the minimal variation observed across other dimensions (months, hospitals overall). This further supports the conclusion that this synthetic dataset was generated with fairly uniform distributions, rather than reflecting genuine differences in hospital scale or pricing.
+Results - Patient count and average billing amount both showed a similarly narrow spread (~3-4%), consistent with the minimal variation observed across other dimensions (months, hospitals overall). This further supports the conclusion that this synthetic dataset was generated with fairly uniform distributions, rather than reflecting genuine differences in hospital scale or pricing.
 
 
 ## Key Findings
@@ -170,13 +169,8 @@ Results - Patient count and average billing amount both showed a similarly narro
 
 ## Conclusion
 
-Cancer and Alzheimer's patients consistently showed the highest 
-billing amounts and longest lengths of stay — suggesting these 
-conditions place the greatest financial and operational burden 
-on the hospitals.
-
-No significant trends were found across hospitals, months, or 
-years — likely a reflection of this being a synthetically 
+Cancer and Alzheimer's patients consistently showed the highest billing amounts and longest lengths of stay — suggesting these conditions place the greatest financial and operational burden on the hospitals.
+No significant trends were found across hospitals, months, or years — likely a reflection of this being a synthetically 
 generated dataset rather than real-world data.
 
 Note: This dataset only includes billing amounts, not actual treatment costs. To fully determine whether money is being lost, cost data would be needed. These findings highlight which conditions and areas are worth investigating further.
