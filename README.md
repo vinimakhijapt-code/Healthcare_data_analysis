@@ -161,6 +161,10 @@ order by avg_billingamount desc
 Results - Patient count and average billing amount both showed a similarly narrow spread (~3-4%), consistent with the minimal variation observed across other dimensions (months, hospitals overall). This further supports the conclusion that this synthetic dataset was generated with fairly uniform distributions, rather than reflecting genuine differences in hospital scale or pricing.
 
 
+![Dashboard Screenshot](Final_dashboard.png)
+**[View interactive dashboard on Tableau Public]([https://public.tableau.com/views/portfoliohealthcaredataset/Dashboard1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link])**
+
+
 ## Key Findings
 - Cancer and Heart Disease had the highest average billing amounts
 - Alzheimer's patients had significantly longer stays (average 54 days)
