@@ -13,6 +13,16 @@ When - how much money is billed yearly, Is there a trend in total billing amount
 
 Who - Are certain hospitals associated with high billing amounts?
 
+## About the Dataset
+Before writing any SQL queries, I looked at how the dataset was structured to understand the data I am working with.
+
+Dataset Size: 55,500 patient rows in a single table.
+Time Period: The data covers admissions from May 2019 to May 2024 (Note: 2019 and 2024 only have data for a few months, not the whole year).
+The Columns Available:
+	- Patient Info: Name, Age, Gender, Blood Type
+	- Hospital Info: Medical Condition, Doctor, Hospital Name, Insurance Provider, Room Number, Admission Type, Medication, Test Results
+	• Dates & Money: Date of Admission, Discharge Date, Length of Stay (Days), and Billing Amount ($)
+
 
 ## Data cleaning checks
 
